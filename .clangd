@@ -1,0 +1,4 @@
+CompileFlags:
+  Add:
+    - --target=arm-none-eabi
+    - --gcc-toolchain=/usr
