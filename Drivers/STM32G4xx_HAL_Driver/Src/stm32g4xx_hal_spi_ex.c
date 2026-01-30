@@ -33,12 +33,12 @@
   */
 #ifdef HAL_SPI_MODULE_ENABLED
 
-    /* Private typedef -----------------------------------------------------------*/
-    /* Private defines -----------------------------------------------------------*/
-    /** @defgroup SPIEx_Private_Constants SPIEx Private Constants
+/* Private typedef -----------------------------------------------------------*/
+/* Private defines -----------------------------------------------------------*/
+/** @defgroup SPIEx_Private_Constants SPIEx Private Constants
   * @{
   */
-    #define SPI_FIFO_SIZE 4UL
+#define SPI_FIFO_SIZE       4UL
 /**
   * @}
   */
@@ -76,18 +76,21 @@
   *               the configuration information for the specified SPI module.
   * @retval HAL status
   */
-HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(const SPI_HandleTypeDef* hspi) {
-    __IO uint32_t tmpreg;
-    uint8_t count = 0U;
-    while ((hspi->Instance->SR & SPI_FLAG_FRLVL) != SPI_FRLVL_EMPTY) {
-        count++;
-        tmpreg = hspi->Instance->DR;
-        UNUSED(tmpreg); /* To avoid GCC warning */
-        if (count == SPI_FIFO_SIZE) {
-            return HAL_TIMEOUT;
-        }
+HAL_StatusTypeDef HAL_SPIEx_FlushRxFifo(const SPI_HandleTypeDef *hspi)
+{
+  __IO uint32_t tmpreg;
+  uint8_t  count = 0U;
+  while ((hspi->Instance->SR & SPI_FLAG_FRLVL) !=  SPI_FRLVL_EMPTY)
+  {
+    count++;
+    tmpreg = hspi->Instance->DR;
+    UNUSED(tmpreg); /* To avoid GCC warning */
+    if (count == SPI_FIFO_SIZE)
+    {
+      return HAL_TIMEOUT;
     }
-    return HAL_OK;
+  }
+  return HAL_OK;
 }
 
 /**

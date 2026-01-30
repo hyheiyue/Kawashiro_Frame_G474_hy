@@ -19,9 +19,9 @@
 
 /* Includes ------------------------------------------------------------------*/
 #include "FreeRTOS.h"
-#include "cmsis_os.h"
-#include "main.h"
 #include "task.h"
+#include "main.h"
+#include "cmsis_os.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
@@ -65,18 +65,18 @@ osThreadId ErrorHandleHandle;
 
 /* USER CODE END FunctionPrototypes */
 
-void StartDefaultTask(void const* argument);
-void Robo_Task(void const* argument);
-void INS_Task(void const* argument);
-void Gimbal_Task(void const* argument);
-void Chassis_Task(void const* argument);
-void Communicate_Task(void const* argument);
-void Key_LED_Task(void const* argument);
-void Buzzer_Task(void const* argument);
-void UI_Task(void const* argument);
-void Shoot_Task(void const* argument);
-void Aim_Task(void const* argument);
-void ErrorHandle_Task(void const* argument);
+void StartDefaultTask(void const * argument);
+void Robo_Task(void const * argument);
+void INS_Task(void const * argument);
+void Gimbal_Task(void const * argument);
+void Chassis_Task(void const * argument);
+void Communicate_Task(void const * argument);
+void Key_LED_Task(void const * argument);
+void Buzzer_Task(void const * argument);
+void UI_Task(void const * argument);
+void Shoot_Task(void const * argument);
+void Aim_Task(void const * argument);
+void ErrorHandle_Task(void const * argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -86,78 +86,79 @@ void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
   * @retval None
   */
 void MX_FREERTOS_Init(void) {
-    /* USER CODE BEGIN Init */
+  /* USER CODE BEGIN Init */
 
-    /* USER CODE END Init */
+  /* USER CODE END Init */
 
-    /* USER CODE BEGIN RTOS_MUTEX */
+  /* USER CODE BEGIN RTOS_MUTEX */
     /* add mutexes, ... */
-    /* USER CODE END RTOS_MUTEX */
+  /* USER CODE END RTOS_MUTEX */
 
-    /* USER CODE BEGIN RTOS_SEMAPHORES */
+  /* USER CODE BEGIN RTOS_SEMAPHORES */
     /* add semaphores, ... */
-    /* USER CODE END RTOS_SEMAPHORES */
+  /* USER CODE END RTOS_SEMAPHORES */
 
-    /* USER CODE BEGIN RTOS_TIMERS */
+  /* USER CODE BEGIN RTOS_TIMERS */
     /* start timers, add new ones, ... */
-    /* USER CODE END RTOS_TIMERS */
+  /* USER CODE END RTOS_TIMERS */
 
-    /* USER CODE BEGIN RTOS_QUEUES */
+  /* USER CODE BEGIN RTOS_QUEUES */
     /* add queues, ... */
-    /* USER CODE END RTOS_QUEUES */
+  /* USER CODE END RTOS_QUEUES */
 
-    /* Create the thread(s) */
-    /* definition and creation of defaultTask */
-    osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
-    defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
+  /* Create the thread(s) */
+  /* definition and creation of defaultTask */
+  osThreadDef(defaultTask, StartDefaultTask, osPriorityNormal, 0, 128);
+  defaultTaskHandle = osThreadCreate(osThread(defaultTask), NULL);
 
-    /* definition and creation of Robo */
-    osThreadDef(Robo, Robo_Task, osPriorityIdle, 0, 512);
-    RoboHandle = osThreadCreate(osThread(Robo), NULL);
+  /* definition and creation of Robo */
+  osThreadDef(Robo, Robo_Task, osPriorityIdle, 0, 512);
+  RoboHandle = osThreadCreate(osThread(Robo), NULL);
 
-    /* definition and creation of INS */
-    osThreadDef(INS, INS_Task, osPriorityIdle, 0, 1024);
-    INSHandle = osThreadCreate(osThread(INS), NULL);
+  /* definition and creation of INS */
+  osThreadDef(INS, INS_Task, osPriorityIdle, 0, 1024);
+  INSHandle = osThreadCreate(osThread(INS), NULL);
 
-    /* definition and creation of Gimbal */
-    osThreadDef(Gimbal, Gimbal_Task, osPriorityIdle, 0, 1024);
-    GimbalHandle = osThreadCreate(osThread(Gimbal), NULL);
+  /* definition and creation of Gimbal */
+  osThreadDef(Gimbal, Gimbal_Task, osPriorityIdle, 0, 1024);
+  GimbalHandle = osThreadCreate(osThread(Gimbal), NULL);
 
-    /* definition and creation of Chassis */
-    osThreadDef(Chassis, Chassis_Task, osPriorityIdle, 0, 1024);
-    ChassisHandle = osThreadCreate(osThread(Chassis), NULL);
+  /* definition and creation of Chassis */
+  osThreadDef(Chassis, Chassis_Task, osPriorityIdle, 0, 1024);
+  ChassisHandle = osThreadCreate(osThread(Chassis), NULL);
 
-    /* definition and creation of Communicate */
-    osThreadDef(Communicate, Communicate_Task, osPriorityIdle, 0, 512);
-    CommunicateHandle = osThreadCreate(osThread(Communicate), NULL);
+  /* definition and creation of Communicate */
+  osThreadDef(Communicate, Communicate_Task, osPriorityIdle, 0, 512);
+  CommunicateHandle = osThreadCreate(osThread(Communicate), NULL);
 
-    /* definition and creation of Key_LED */
-    osThreadDef(Key_LED, Key_LED_Task, osPriorityIdle, 0, 256);
-    Key_LEDHandle = osThreadCreate(osThread(Key_LED), NULL);
+  /* definition and creation of Key_LED */
+  osThreadDef(Key_LED, Key_LED_Task, osPriorityIdle, 0, 256);
+  Key_LEDHandle = osThreadCreate(osThread(Key_LED), NULL);
 
-    /* definition and creation of Buzzer */
-    osThreadDef(Buzzer, Buzzer_Task, osPriorityIdle, 0, 256);
-    BuzzerHandle = osThreadCreate(osThread(Buzzer), NULL);
+  /* definition and creation of Buzzer */
+  osThreadDef(Buzzer, Buzzer_Task, osPriorityIdle, 0, 256);
+  BuzzerHandle = osThreadCreate(osThread(Buzzer), NULL);
 
-    /* definition and creation of UI */
-    osThreadDef(UI, UI_Task, osPriorityIdle, 0, 256);
-    UIHandle = osThreadCreate(osThread(UI), NULL);
+  /* definition and creation of UI */
+  osThreadDef(UI, UI_Task, osPriorityIdle, 0, 256);
+  UIHandle = osThreadCreate(osThread(UI), NULL);
 
-    /* definition and creation of Shoot */
-    osThreadDef(Shoot, Shoot_Task, osPriorityIdle, 0, 1024);
-    ShootHandle = osThreadCreate(osThread(Shoot), NULL);
+  /* definition and creation of Shoot */
+  osThreadDef(Shoot, Shoot_Task, osPriorityIdle, 0, 1024);
+  ShootHandle = osThreadCreate(osThread(Shoot), NULL);
 
-    /* definition and creation of Aim */
-    osThreadDef(Aim, Aim_Task, osPriorityIdle, 0, 512);
-    AimHandle = osThreadCreate(osThread(Aim), NULL);
+  /* definition and creation of Aim */
+  osThreadDef(Aim, Aim_Task, osPriorityIdle, 0, 512);
+  AimHandle = osThreadCreate(osThread(Aim), NULL);
 
-    /* definition and creation of ErrorHandle */
-    osThreadDef(ErrorHandle, ErrorHandle_Task, osPriorityIdle, 0, 256);
-    ErrorHandleHandle = osThreadCreate(osThread(ErrorHandle), NULL);
+  /* definition and creation of ErrorHandle */
+  osThreadDef(ErrorHandle, ErrorHandle_Task, osPriorityIdle, 0, 256);
+  ErrorHandleHandle = osThreadCreate(osThread(ErrorHandle), NULL);
 
-    /* USER CODE BEGIN RTOS_THREADS */
+  /* USER CODE BEGIN RTOS_THREADS */
     /* add threads, ... */
-    /* USER CODE END RTOS_THREADS */
+  /* USER CODE END RTOS_THREADS */
+
 }
 
 /* USER CODE BEGIN Header_StartDefaultTask */
@@ -170,10 +171,11 @@ void MX_FREERTOS_Init(void) {
 #include "Remote_Control.h"
 #include "RoboControl.h"
 /* USER CODE END Header_StartDefaultTask */
-void StartDefaultTask(void const* argument) {
-    /* init code for USB_Device */
-    MX_USB_Device_Init();
-    /* USER CODE BEGIN StartDefaultTask */
+void StartDefaultTask(void const * argument)
+{
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
+  /* USER CODE BEGIN StartDefaultTask */
     /* Infinite loop */
     for (;;) {
         /*===| 电机角度计算速度 |===*/
@@ -182,7 +184,7 @@ void StartDefaultTask(void const* argument) {
 
         osDelay(5);
     }
-    /* USER CODE END StartDefaultTask */
+  /* USER CODE END StartDefaultTask */
 }
 
 /* USER CODE BEGIN Header_Robo_Task */
@@ -192,15 +194,15 @@ void StartDefaultTask(void const* argument) {
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Robo_Task */
-    void
-    Robo_Task(void const* argument) {
-    /* USER CODE BEGIN Robo_Task */
+/* USER CODE END Header_Robo_Task */
+void Robo_Task(void const * argument)
+{
+  /* USER CODE BEGIN Robo_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Robo_Task */
+  /* USER CODE END Robo_Task */
 }
 
 /* USER CODE BEGIN Header_INS_Task */
@@ -210,15 +212,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_INS_Task */
-    void
-    INS_Task(void const* argument) {
-    /* USER CODE BEGIN INS_Task */
+/* USER CODE END Header_INS_Task */
+void INS_Task(void const * argument)
+{
+  /* USER CODE BEGIN INS_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END INS_Task */
+  /* USER CODE END INS_Task */
 }
 
 /* USER CODE BEGIN Header_Gimbal_Task */
@@ -228,15 +230,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Gimbal_Task */
-    void
-    Gimbal_Task(void const* argument) {
-    /* USER CODE BEGIN Gimbal_Task */
+/* USER CODE END Header_Gimbal_Task */
+void Gimbal_Task(void const * argument)
+{
+  /* USER CODE BEGIN Gimbal_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Gimbal_Task */
+  /* USER CODE END Gimbal_Task */
 }
 
 /* USER CODE BEGIN Header_Chassis_Task */
@@ -246,15 +248,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Chassis_Task */
-    void
-    Chassis_Task(void const* argument) {
-    /* USER CODE BEGIN Chassis_Task */
+/* USER CODE END Header_Chassis_Task */
+void Chassis_Task(void const * argument)
+{
+  /* USER CODE BEGIN Chassis_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Chassis_Task */
+  /* USER CODE END Chassis_Task */
 }
 
 /* USER CODE BEGIN Header_Communicate_Task */
@@ -264,15 +266,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Communicate_Task */
-    void
-    Communicate_Task(void const* argument) {
-    /* USER CODE BEGIN Communicate_Task */
+/* USER CODE END Header_Communicate_Task */
+void Communicate_Task(void const * argument)
+{
+  /* USER CODE BEGIN Communicate_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Communicate_Task */
+  /* USER CODE END Communicate_Task */
 }
 
 /* USER CODE BEGIN Header_Key_LED_Task */
@@ -282,15 +284,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Key_LED_Task */
-    void
-    Key_LED_Task(void const* argument) {
-    /* USER CODE BEGIN Key_LED_Task */
+/* USER CODE END Header_Key_LED_Task */
+void Key_LED_Task(void const * argument)
+{
+  /* USER CODE BEGIN Key_LED_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Key_LED_Task */
+  /* USER CODE END Key_LED_Task */
 }
 
 /* USER CODE BEGIN Header_Buzzer_Task */
@@ -300,15 +302,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Buzzer_Task */
-    void
-    Buzzer_Task(void const* argument) {
-    /* USER CODE BEGIN Buzzer_Task */
+/* USER CODE END Header_Buzzer_Task */
+void Buzzer_Task(void const * argument)
+{
+  /* USER CODE BEGIN Buzzer_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Buzzer_Task */
+  /* USER CODE END Buzzer_Task */
 }
 
 /* USER CODE BEGIN Header_UI_Task */
@@ -318,15 +320,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_UI_Task */
-    void
-    UI_Task(void const* argument) {
-    /* USER CODE BEGIN UI_Task */
+/* USER CODE END Header_UI_Task */
+void UI_Task(void const * argument)
+{
+  /* USER CODE BEGIN UI_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END UI_Task */
+  /* USER CODE END UI_Task */
 }
 
 /* USER CODE BEGIN Header_Shoot_Task */
@@ -336,15 +338,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Shoot_Task */
-    void
-    Shoot_Task(void const* argument) {
-    /* USER CODE BEGIN Shoot_Task */
+/* USER CODE END Header_Shoot_Task */
+void Shoot_Task(void const * argument)
+{
+  /* USER CODE BEGIN Shoot_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Shoot_Task */
+  /* USER CODE END Shoot_Task */
 }
 
 /* USER CODE BEGIN Header_Aim_Task */
@@ -354,15 +356,15 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_Aim_Task */
-    void
-    Aim_Task(void const* argument) {
-    /* USER CODE BEGIN Aim_Task */
+/* USER CODE END Header_Aim_Task */
+void Aim_Task(void const * argument)
+{
+  /* USER CODE BEGIN Aim_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END Aim_Task */
+  /* USER CODE END Aim_Task */
 }
 
 /* USER CODE BEGIN Header_ErrorHandle_Task */
@@ -372,18 +374,19 @@ __weak
 * @retval None
 */
 __weak
-    /* USER CODE END Header_ErrorHandle_Task */
-    void
-    ErrorHandle_Task(void const* argument) {
-    /* USER CODE BEGIN ErrorHandle_Task */
+/* USER CODE END Header_ErrorHandle_Task */
+void ErrorHandle_Task(void const * argument)
+{
+  /* USER CODE BEGIN ErrorHandle_Task */
     /* Infinite loop */
     for (;;) {
         osDelay(1);
     }
-    /* USER CODE END ErrorHandle_Task */
+  /* USER CODE END ErrorHandle_Task */
 }
 
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
 /* USER CODE END Application */
+

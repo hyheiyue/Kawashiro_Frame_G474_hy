@@ -49,13 +49,13 @@ extern "C" {
 /** @addtogroup FLASHEx_Exported_Functions_Group1
   * @{
   */
-HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef* pEraseInit, uint32_t* PageError);
-HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef* pEraseInit);
-HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef* pOBInit);
-void HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef* pOBInit);
+HAL_StatusTypeDef HAL_FLASHEx_Erase(FLASH_EraseInitTypeDef *pEraseInit, uint32_t *PageError);
+HAL_StatusTypeDef HAL_FLASHEx_Erase_IT(FLASH_EraseInitTypeDef *pEraseInit);
+HAL_StatusTypeDef HAL_FLASHEx_OBProgram(FLASH_OBProgramInitTypeDef *pOBInit);
+void              HAL_FLASHEx_OBGetConfig(FLASH_OBProgramInitTypeDef *pOBInit);
 HAL_StatusTypeDef HAL_FLASHEx_EnableSecMemProtection(uint32_t Bank);
-void HAL_FLASHEx_EnableDebugger(void);
-void HAL_FLASHEx_DisableDebugger(void);
+void              HAL_FLASHEx_EnableDebugger(void);
+void              HAL_FLASHEx_DisableDebugger(void);
 /**
   * @}
   */
@@ -67,8 +67,8 @@ void HAL_FLASHEx_DisableDebugger(void);
 /** @addtogroup FLASHEx_Private_Functions
   * @{
   */
-void FLASH_PageErase(uint32_t Page, uint32_t Banks);
-void FLASH_FlushCaches(void);
+void              FLASH_PageErase(uint32_t Page, uint32_t Banks);
+void              FLASH_FlushCaches(void);
 /**
   * @}
   */
@@ -86,3 +86,4 @@ void FLASH_FlushCaches(void);
 #endif
 
 #endif /* STM32G4xx_HAL_FLASH_EX_H */
+

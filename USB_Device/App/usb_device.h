@@ -23,7 +23,7 @@
 #define __USB_DEVICE__H__
 
 #ifdef __cplusplus
-extern "C" {
+ extern "C" {
 #endif
 
 /* Includes ------------------------------------------------------------------*/
@@ -100,3 +100,4 @@ void MX_USB_Device_Init(void);
 #endif
 
 #endif /* __USB_DEVICE__H__ */
+

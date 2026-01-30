@@ -49,3 +49,4 @@ void MX_OPAMP6_Init(void);
 #endif
 
 #endif /* __OPAMP_H__ */
+

@@ -207,9 +207,9 @@ void RemoteControl_Float(void) {
     float Dt = DWT_GetDeltaT(&Remote_DWT_Count);
 
     if (Remote_Control_Struct.RC_Side < 0.7f && Remote_Control_Struct.RC_Side > -0.7f) {
-        RoboControl_Struct.Robo_Target_Vx = -Robo_Vx_MaxSpeed
+        RoboControl_Struct.Robo_Target_Vx = Robo_Vx_MaxSpeed
             * RoboControl_Struct.Chassis_Speed_Level / 5.0f * Remote_Control_Struct.RC_Left_X;
-        RoboControl_Struct.Robo_Target_Vy = -Robo_Vy_MaxSpeed
+        RoboControl_Struct.Robo_Target_Vy = Robo_Vy_MaxSpeed
             * RoboControl_Struct.Chassis_Speed_Level / 5.0f * Remote_Control_Struct.RC_Left_Y;
         RoboControl_Struct.Robo_Target_Yaw -= Dt * 300.0f * Remote_Control_Struct.RC_Right_X;
         RoboControl_Struct.Robo_Target_Pitch += Dt * 80.0f * Remote_Control_Struct.RC_Right_Y;

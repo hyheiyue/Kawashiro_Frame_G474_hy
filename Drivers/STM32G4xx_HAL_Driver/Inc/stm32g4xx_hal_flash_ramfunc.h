@@ -47,7 +47,7 @@ extern "C" {
 /* Peripheral Control functions  ************************************************/
 __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_EnableRunPowerDown(void);
 __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_DisableRunPowerDown(void);
-#if defined(FLASH_OPTR_DBANK)
+#if defined (FLASH_OPTR_DBANK)
 __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_OB_DBankConfig(uint32_t DBankConfig);
 #endif
 /**
@@ -71,3 +71,4 @@ __RAM_FUNC HAL_StatusTypeDef HAL_FLASHEx_OB_DBankConfig(uint32_t DBankConfig);
 #endif
 
 #endif /* STM32G4xx_FLASH_RAMFUNC_H */
+

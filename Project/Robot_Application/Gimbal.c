@@ -16,7 +16,7 @@ Gimbal_Control_StructTypeDef Gimbal_Control_Struct;
 
 void Gimbal_Task(void* argument) {
     /*===| 云台PID参数初始化 |===*/
-    PID_Init(&Gimbal_Control_Struct.Yaw_Angle_PID_Struct, 15, 0, 300, 0, 0, 200);
+    PID_Init(&Gimbal_Control_Struct.Yaw_Angle_PID_Struct, 10, 0, 200, 0, 0, 100);
     PID_Init(&Gimbal_Control_Struct.Yaw_Speed_PID_Struct, 150, 3, 0, 20, 1200, 16384);
     PID_Init(&Gimbal_Control_Struct.Pitch_Angle_PID_Struct, 10, 0, 200, 0, 0, 100);
     PID_Init(&Gimbal_Control_Struct.Pitch_Speed_PID_Struct, 400, 1, 0, 0, 3500, 16384);

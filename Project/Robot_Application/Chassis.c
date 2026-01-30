@@ -190,16 +190,16 @@ void Chassis_Task(void* argument) {
 
         /*===| 运动学解算[麦轮] |===*/
         Chassis_Control_Struct.MotorID_SpeedSet[0] =
-            (-Chassis_Control_Struct.Chassis_Vy_Set - Chassis_Control_Struct.Chassis_Vx_Set)
+            (+Chassis_Control_Struct.Chassis_Vy_Set + Chassis_Control_Struct.Chassis_Vx_Set)
             - Chassis_R_Distance * Chassis_Control_Struct.Chassis_Wz_Set;
         Chassis_Control_Struct.MotorID_SpeedSet[1] =
-            (+Chassis_Control_Struct.Chassis_Vy_Set - Chassis_Control_Struct.Chassis_Vx_Set)
-            - Chassis_R_Distance * Chassis_Control_Struct.Chassis_Wz_Set;
-        Chassis_Control_Struct.MotorID_SpeedSet[2] =
             (-Chassis_Control_Struct.Chassis_Vy_Set + Chassis_Control_Struct.Chassis_Vx_Set)
             - Chassis_R_Distance * Chassis_Control_Struct.Chassis_Wz_Set;
+        Chassis_Control_Struct.MotorID_SpeedSet[2] =
+            (+Chassis_Control_Struct.Chassis_Vy_Set - Chassis_Control_Struct.Chassis_Vx_Set)
+            - Chassis_R_Distance * Chassis_Control_Struct.Chassis_Wz_Set;
         Chassis_Control_Struct.MotorID_SpeedSet[3] =
-            (+Chassis_Control_Struct.Chassis_Vy_Set + Chassis_Control_Struct.Chassis_Vx_Set)
+            (-Chassis_Control_Struct.Chassis_Vy_Set - Chassis_Control_Struct.Chassis_Vx_Set)
             - Chassis_R_Distance * Chassis_Control_Struct.Chassis_Wz_Set;
 
         /*===| PID计算得到每个电机的电流大小 |===*/

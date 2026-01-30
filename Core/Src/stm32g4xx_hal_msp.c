@@ -61,25 +61,27 @@
 /**
   * Initializes the Global MSP.
   */
-void HAL_MspInit(void) {
-    /* USER CODE BEGIN MspInit 0 */
+void HAL_MspInit(void)
+{
 
-    /* USER CODE END MspInit 0 */
+  /* USER CODE BEGIN MspInit 0 */
 
-    __HAL_RCC_SYSCFG_CLK_ENABLE();
-    __HAL_RCC_PWR_CLK_ENABLE();
+  /* USER CODE END MspInit 0 */
 
-    /* System interrupt init*/
-    /* PendSV_IRQn interrupt configuration */
-    HAL_NVIC_SetPriority(PendSV_IRQn, 15, 0);
+  __HAL_RCC_SYSCFG_CLK_ENABLE();
+  __HAL_RCC_PWR_CLK_ENABLE();
 
-    /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
+  /* System interrupt init*/
+  /* PendSV_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(PendSV_IRQn, 15, 0);
+
+  /** Disable the internal Pull-Up in Dead Battery pins of UCPD peripheral
   */
-    HAL_PWREx_DisableUCPDDeadBattery();
+  HAL_PWREx_DisableUCPDDeadBattery();
 
-    /* USER CODE BEGIN MspInit 1 */
+  /* USER CODE BEGIN MspInit 1 */
 
-    /* USER CODE END MspInit 1 */
+  /* USER CODE END MspInit 1 */
 }
 
 /* USER CODE BEGIN 1 */

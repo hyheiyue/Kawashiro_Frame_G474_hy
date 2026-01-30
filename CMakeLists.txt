@@ -8,7 +8,8 @@ set(CMAKE_PROJECT_NAME Kawashiro_Frame_G474)
 project(${CMAKE_PROJECT_NAME} C ASM)
 
 message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
-
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_SOURCE_DIR}/bin)
+set(CMAKE_BUILD_TYPE Release)
 # ============================
 # Build type
 # ============================

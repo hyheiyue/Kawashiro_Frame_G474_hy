@@ -35,24 +35,20 @@
 
 #ifdef HAL_PWR_MODULE_ENABLED
 
-    /* Private typedef -----------------------------------------------------------*/
-    /* Private define ------------------------------------------------------------*/
+/* Private typedef -----------------------------------------------------------*/
+/* Private define ------------------------------------------------------------*/
 
-    /** @defgroup PWR_Private_Defines PWR Private Defines
+/** @defgroup PWR_Private_Defines PWR Private Defines
   * @{
   */
 
-    /** @defgroup PWR_PVD_Mode_Mask PWR PVD Mode Mask
+/** @defgroup PWR_PVD_Mode_Mask PWR PVD Mode Mask
   * @{
   */
-    #define PVD_MODE_IT \
-        ((uint32_t)0x00010000) /*!< Mask for interruption yielded by PVD threshold crossing */
-    #define PVD_MODE_EVT \
-        ((uint32_t)0x00020000) /*!< Mask for event yielded by PVD threshold crossing        */
-    #define PVD_RISING_EDGE \
-        ((uint32_t)0x00000001) /*!< Mask for rising edge set as PVD trigger                 */
-    #define PVD_FALLING_EDGE \
-        ((uint32_t)0x00000002) /*!< Mask for falling edge set as PVD trigger                */
+#define PVD_MODE_IT               ((uint32_t)0x00010000)  /*!< Mask for interruption yielded by PVD threshold crossing */
+#define PVD_MODE_EVT              ((uint32_t)0x00020000)  /*!< Mask for event yielded by PVD threshold crossing        */
+#define PVD_RISING_EDGE           ((uint32_t)0x00000001)  /*!< Mask for rising edge set as PVD trigger                 */
+#define PVD_FALLING_EDGE          ((uint32_t)0x00000002)  /*!< Mask for falling edge set as PVD trigger                */
 /**
   * @}
   */
@@ -87,9 +83,10 @@
   * @brief Deinitialize the HAL PWR peripheral registers to their default reset values.
   * @retval None
   */
-void HAL_PWR_DeInit(void) {
-    __HAL_RCC_PWR_FORCE_RESET();
-    __HAL_RCC_PWR_RELEASE_RESET();
+void HAL_PWR_DeInit(void)
+{
+  __HAL_RCC_PWR_FORCE_RESET();
+  __HAL_RCC_PWR_RELEASE_RESET();
 }
 
 /**
@@ -104,8 +101,9 @@ void HAL_PWR_DeInit(void) {
   *        back-up domain.
   * @retval None
   */
-void HAL_PWR_EnableBkUpAccess(void) {
-    SET_BIT(PWR->CR1, PWR_CR1_DBP);
+void HAL_PWR_EnableBkUpAccess(void)
+{
+  SET_BIT(PWR->CR1, PWR_CR1_DBP);
 }
 
 /**
@@ -113,13 +111,19 @@ void HAL_PWR_EnableBkUpAccess(void) {
   *        (RTC registers, RTC backup data registers).
   * @retval None
   */
-void HAL_PWR_DisableBkUpAccess(void) {
-    CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
+void HAL_PWR_DisableBkUpAccess(void)
+{
+  CLEAR_BIT(PWR->CR1, PWR_CR1_DBP);
 }
+
+
+
 
 /**
   * @}
   */
+
+
 
 /** @defgroup PWR_Exported_Functions_Group2 Peripheral Control functions
   *  @brief Low Power modes configuration functions
@@ -290,6 +294,8 @@ void HAL_PWR_DisableBkUpAccess(void) {
   * @{
   */
 
+
+
 /**
   * @brief Configure the voltage threshold detected by the Power Voltage Detector (PVD).
   * @param sConfigPVD: pointer to a PWR_PVDTypeDef structure that contains the PVD
@@ -299,57 +305,68 @@ void HAL_PWR_DisableBkUpAccess(void) {
   *         detection level.
   * @retval None
   */
-HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef* sConfigPVD) {
-    /* Check the parameters */
-    assert_param(IS_PWR_PVD_LEVEL(sConfigPVD->PVDLevel));
-    assert_param(IS_PWR_PVD_MODE(sConfigPVD->Mode));
+HAL_StatusTypeDef HAL_PWR_ConfigPVD(PWR_PVDTypeDef *sConfigPVD)
+{
+  /* Check the parameters */
+  assert_param(IS_PWR_PVD_LEVEL(sConfigPVD->PVDLevel));
+  assert_param(IS_PWR_PVD_MODE(sConfigPVD->Mode));
 
-    /* Set PLS bits according to PVDLevel value */
-    MODIFY_REG(PWR->CR2, PWR_CR2_PLS, sConfigPVD->PVDLevel);
+  /* Set PLS bits according to PVDLevel value */
+  MODIFY_REG(PWR->CR2, PWR_CR2_PLS, sConfigPVD->PVDLevel);
 
-    /* Clear any previous config. Keep it clear if no event or IT mode is selected */
-    __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
-    __HAL_PWR_PVD_EXTI_DISABLE_IT();
-    __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE();
-    __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE();
+  /* Clear any previous config. Keep it clear if no event or IT mode is selected */
+  __HAL_PWR_PVD_EXTI_DISABLE_EVENT();
+  __HAL_PWR_PVD_EXTI_DISABLE_IT();
+  __HAL_PWR_PVD_EXTI_DISABLE_FALLING_EDGE();
+  __HAL_PWR_PVD_EXTI_DISABLE_RISING_EDGE();
 
-    /* Configure interrupt mode */
-    if ((sConfigPVD->Mode & PVD_MODE_IT) == PVD_MODE_IT) {
-        __HAL_PWR_PVD_EXTI_ENABLE_IT();
-    }
+  /* Configure interrupt mode */
+  if((sConfigPVD->Mode & PVD_MODE_IT) == PVD_MODE_IT)
+  {
+    __HAL_PWR_PVD_EXTI_ENABLE_IT();
+  }
 
-    /* Configure event mode */
-    if ((sConfigPVD->Mode & PVD_MODE_EVT) == PVD_MODE_EVT) {
-        __HAL_PWR_PVD_EXTI_ENABLE_EVENT();
-    }
+  /* Configure event mode */
+  if((sConfigPVD->Mode & PVD_MODE_EVT) == PVD_MODE_EVT)
+  {
+    __HAL_PWR_PVD_EXTI_ENABLE_EVENT();
+  }
 
-    /* Configure the edge */
-    if ((sConfigPVD->Mode & PVD_RISING_EDGE) == PVD_RISING_EDGE) {
-        __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE();
-    }
+  /* Configure the edge */
+  if((sConfigPVD->Mode & PVD_RISING_EDGE) == PVD_RISING_EDGE)
+  {
+    __HAL_PWR_PVD_EXTI_ENABLE_RISING_EDGE();
+  }
 
-    if ((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE) {
-        __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
-    }
+  if((sConfigPVD->Mode & PVD_FALLING_EDGE) == PVD_FALLING_EDGE)
+  {
+    __HAL_PWR_PVD_EXTI_ENABLE_FALLING_EDGE();
+  }
 
-    return HAL_OK;
+  return HAL_OK;
 }
+
 
 /**
   * @brief Enable the Power Voltage Detector (PVD).
   * @retval None
   */
-void HAL_PWR_EnablePVD(void) {
-    SET_BIT(PWR->CR2, PWR_CR2_PVDE);
+void HAL_PWR_EnablePVD(void)
+{
+  SET_BIT(PWR->CR2, PWR_CR2_PVDE);
 }
 
 /**
   * @brief Disable the Power Voltage Detector (PVD).
   * @retval None
   */
-void HAL_PWR_DisablePVD(void) {
-    CLEAR_BIT(PWR->CR2, PWR_CR2_PVDE);
+void HAL_PWR_DisablePVD(void)
+{
+  CLEAR_BIT(PWR->CR2, PWR_CR2_PVDE);
 }
+
+
+
 
 /**
   * @brief Enable the WakeUp PINx functionality.
@@ -368,19 +385,18 @@ void HAL_PWR_DisablePVD(void) {
   * @note  PWR_WAKEUP_PINx and PWR_WAKEUP_PINx_HIGH are equivalent.
   * @retval None
   */
-void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity) {
-    assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinPolarity));
+void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity)
+{
+  assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinPolarity));
 
-    /* Specifies the Wake-Up pin polarity for the event detection
+  /* Specifies the Wake-Up pin polarity for the event detection
     (rising or falling edge) */
-    MODIFY_REG(
-        PWR->CR4,
-        (PWR_CR3_EWUP & WakeUpPinPolarity),
-        (WakeUpPinPolarity >> PWR_WUP_POLARITY_SHIFT)
-    );
+  MODIFY_REG(PWR->CR4, (PWR_CR3_EWUP & WakeUpPinPolarity), (WakeUpPinPolarity >> PWR_WUP_POLARITY_SHIFT));
 
-    /* Enable wake-up pin */
-    SET_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinPolarity));
+  /* Enable wake-up pin */
+  SET_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinPolarity));
+
+
 }
 
 /**
@@ -390,11 +406,13 @@ void HAL_PWR_EnableWakeUpPin(uint32_t WakeUpPinPolarity) {
   *           @arg @ref PWR_WAKEUP_PIN1, PWR_WAKEUP_PIN2, PWR_WAKEUP_PIN3, PWR_WAKEUP_PIN4, PWR_WAKEUP_PIN5
   * @retval None
   */
-void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx) {
-    assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinx));
+void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx)
+{
+  assert_param(IS_PWR_WAKEUP_PIN(WakeUpPinx));
 
-    CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
+  CLEAR_BIT(PWR->CR3, (PWR_CR3_EWUP & WakeUpPinx));
 }
+
 
 /**
   * @brief Enter Sleep or Low-power Sleep mode.
@@ -420,40 +438,51 @@ void HAL_PWR_DisableWakeUpPin(uint32_t WakeUpPinx) {
   *        the interrupt wake up source.
   * @retval None
   */
-void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry) {
-    /* Check the parameters */
-    assert_param(IS_PWR_REGULATOR(Regulator));
-    assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
+void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry)
+{
+  /* Check the parameters */
+  assert_param(IS_PWR_REGULATOR(Regulator));
+  assert_param(IS_PWR_SLEEP_ENTRY(SLEEPEntry));
 
-    /* Set Regulator parameter */
-    if (Regulator == PWR_MAINREGULATOR_ON) {
-        /* If in low-power run mode at this point, exit it */
-        if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF)) {
-            (void)HAL_PWREx_DisableLowPowerRunMode();
-        }
-        /* Regulator now in main mode. */
-    } else {
-        /* If in run mode, first move to low-power run mode.
+  /* Set Regulator parameter */
+  if (Regulator == PWR_MAINREGULATOR_ON)
+  {
+    /* If in low-power run mode at this point, exit it */
+    if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF))
+    {
+      (void)HAL_PWREx_DisableLowPowerRunMode();
+    }
+    /* Regulator now in main mode. */
+  }
+  else
+  {
+    /* If in run mode, first move to low-power run mode.
        The system clock frequency must be below 2 MHz at this point. */
-        if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == 0U) {
-            HAL_PWREx_EnableLowPowerRunMode();
-        }
+    if (HAL_IS_BIT_SET(PWR->SR2, PWR_SR2_REGLPF) == 0U)
+    {
+      HAL_PWREx_EnableLowPowerRunMode();
     }
+  }
 
-    /* Clear SLEEPDEEP bit of Cortex System Control Register */
-    CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
+  /* Clear SLEEPDEEP bit of Cortex System Control Register */
+  CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
-    /* Select SLEEP mode entry -------------------------------------------------*/
-    if (SLEEPEntry == PWR_SLEEPENTRY_WFI) {
-        /* Request Wait For Interrupt */
-        __WFI();
-    } else {
-        /* Request Wait For Event */
-        __SEV();
-        __WFE();
-        __WFE();
-    }
+  /* Select SLEEP mode entry -------------------------------------------------*/
+  if(SLEEPEntry == PWR_SLEEPENTRY_WFI)
+  {
+    /* Request Wait For Interrupt */
+    __WFI();
+  }
+  else
+  {
+    /* Request Wait For Event */
+    __SEV();
+    __WFE();
+    __WFE();
+  }
+
 }
+
 
 /**
   * @brief Enter Stop mode
@@ -484,15 +513,19 @@ void HAL_PWR_EnterSLEEPMode(uint32_t Regulator, uint8_t SLEEPEntry) {
   *            @arg @ref PWR_STOPENTRY_WFE  Enter Stop 0 or Stop 1 mode with WFE instruction.
   * @retval None
   */
-void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry) {
-    /* Check the parameters */
-    assert_param(IS_PWR_REGULATOR(Regulator));
+void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry)
+{
+  /* Check the parameters */
+  assert_param(IS_PWR_REGULATOR(Regulator));
 
-    if (Regulator == PWR_LOWPOWERREGULATOR_ON) {
-        HAL_PWREx_EnterSTOP1Mode(STOPEntry);
-    } else {
-        HAL_PWREx_EnterSTOP0Mode(STOPEntry);
-    }
+  if(Regulator == PWR_LOWPOWERREGULATOR_ON)
+  {
+    HAL_PWREx_EnterSTOP1Mode(STOPEntry);
+  }
+  else
+  {
+    HAL_PWREx_EnterSTOP0Mode(STOPEntry);
+  }
 }
 
 /**
@@ -513,20 +546,23 @@ void HAL_PWR_EnterSTOPMode(uint32_t Regulator, uint8_t STOPEntry) {
   *        HAL_PWREx_EnablePullUpPullDownConfig() API.
   * @retval None
   */
-void HAL_PWR_EnterSTANDBYMode(void) {
-    /* Set Stand-by mode */
-    MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_CR1_LPMS_STANDBY);
+void HAL_PWR_EnterSTANDBYMode(void)
+{
+  /* Set Stand-by mode */
+  MODIFY_REG(PWR->CR1, PWR_CR1_LPMS, PWR_CR1_LPMS_STANDBY);
 
-    /* Set SLEEPDEEP bit of Cortex System Control Register */
-    SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
+  /* Set SLEEPDEEP bit of Cortex System Control Register */
+  SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPDEEP_Msk));
 
-    /* This option is used to ensure that store operations are completed */
-    #if defined(__CC_ARM)
-    __force_stores();
-    #endif
-    /* Request Wait For Interrupt */
-    __WFI();
+/* This option is used to ensure that store operations are completed */
+#if defined ( __CC_ARM)
+  __force_stores();
+#endif
+  /* Request Wait For Interrupt */
+  __WFI();
 }
+
+
 
 /**
   * @brief Indicate Sleep-On-Exit when returning from Handler mode to Thread mode.
@@ -536,10 +572,12 @@ void HAL_PWR_EnterSTANDBYMode(void) {
   *       interruptions handling.
   * @retval None
   */
-void HAL_PWR_EnableSleepOnExit(void) {
-    /* Set SLEEPONEXIT bit of Cortex System Control Register */
-    SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
+void HAL_PWR_EnableSleepOnExit(void)
+{
+  /* Set SLEEPONEXIT bit of Cortex System Control Register */
+  SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 }
+
 
 /**
   * @brief Disable Sleep-On-Exit feature when returning from Handler mode to Thread mode.
@@ -547,10 +585,13 @@ void HAL_PWR_EnableSleepOnExit(void) {
   *       re-enters SLEEP mode when an interruption handling is over.
   * @retval None
   */
-void HAL_PWR_DisableSleepOnExit(void) {
-    /* Clear SLEEPONEXIT bit of Cortex System Control Register */
-    CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
+void HAL_PWR_DisableSleepOnExit(void)
+{
+  /* Clear SLEEPONEXIT bit of Cortex System Control Register */
+  CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SLEEPONEXIT_Msk));
 }
+
+
 
 /**
   * @brief Enable CORTEX M4 SEVONPEND bit.
@@ -558,10 +599,12 @@ void HAL_PWR_DisableSleepOnExit(void) {
   *       WFE to wake up when an interrupt moves from inactive to pended.
   * @retval None
   */
-void HAL_PWR_EnableSEVOnPend(void) {
-    /* Set SEVONPEND bit of Cortex System Control Register */
-    SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
+void HAL_PWR_EnableSEVOnPend(void)
+{
+  /* Set SEVONPEND bit of Cortex System Control Register */
+  SET_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 }
+
 
 /**
   * @brief Disable CORTEX M4 SEVONPEND bit.
@@ -569,17 +612,23 @@ void HAL_PWR_EnableSEVOnPend(void) {
   *       WFE to wake up when an interrupt moves from inactive to pended.
   * @retval None
   */
-void HAL_PWR_DisableSEVOnPend(void) {
-    /* Clear SEVONPEND bit of Cortex System Control Register */
-    CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
+void HAL_PWR_DisableSEVOnPend(void)
+{
+  /* Clear SEVONPEND bit of Cortex System Control Register */
+  CLEAR_BIT(SCB->SCR, ((uint32_t)SCB_SCR_SEVONPEND_Msk));
 }
+
+
+
+
 
 /**
   * @brief PWR PVD interrupt callback
   * @retval None
   */
-__weak void HAL_PWR_PVDCallback(void) {
-    /* NOTE : This function should not be modified; when the callback is needed,
+__weak void HAL_PWR_PVDCallback(void)
+{
+  /* NOTE : This function should not be modified; when the callback is needed,
             the HAL_PWR_PVDCallback can be implemented in the user file
    */
 }
@@ -600,3 +649,4 @@ __weak void HAL_PWR_PVDCallback(void) {
 /**
   * @}
   */
+
